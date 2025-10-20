@@ -22,5 +22,29 @@ dependencies {
     implementation(libs.logback.classic)
     implementation(libs.ktor.server.config.yaml)
     testImplementation(libs.ktor.server.test.host)
-    testImplementation(libs.kotlin.test.junit)
+
+
+
+    // Ktor TestHost: In-Memory-Server für Tests
+    testImplementation(libs.ktor.server.test.host)
+
+    // HTTP-Client im Test (für echte Requests gegen testApplication)
+    testImplementation(libs.ktor.client.core)
+    testImplementation(libs.ktor.client.cio)
+    testImplementation(libs.ktor.client.content.negotiation)
+
+    // JSON & Coroutines Test-Hilfen
+    testImplementation(libs.kotlinx.serialization.json)
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    // JUnit 5 + Kotlin Test
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.kotlin.test)        // oder libs.kotlin.test.junit, wenn du lieber das nutzt
+
+}
+
+tasks.test {
+    // useJUnitPlatform() aktiviert den JUnit 5 TestRunner
+    //Ohne das werden Ktor-/JUnit5-Tests nicht ausgeführt
+    useJUnitPlatform()
 }
